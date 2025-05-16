@@ -1,0 +1,53 @@
+class VolunteerModel {
+  final String id; // Unique ID for the user (from 'users' table)
+  final String firstName;
+  final String lastName;
+  final String email;
+  final String skills;
+  final String experience;
+  final String phoneNumber;
+  final String? imageUrl; // Profile picture URL
+  //final bool isVolunteer; // Role flag to identify if user is a volunteer
+
+  VolunteerModel({
+    required this.id,
+    required this.firstName,
+    required this.lastName,
+    required this.email,
+    required this.skills,
+    required this.experience,
+    required this.phoneNumber,
+    this.imageUrl,
+    //required this.isVolunteer,
+  });
+
+  factory VolunteerModel.fromJson(Map<String, dynamic> json) {
+    return VolunteerModel(
+      id: json['id'],
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      email: json['email'],
+      skills: json['skills'],
+      experience: json['experience'],
+      phoneNumber: json['phoneNumber'],
+      imageUrl: json['imageUrl'],
+      //isVolunteer: json['isVolunteer'],
+    );
+  }
+
+  get volunteer => null;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'firstName': firstName,
+      'lastName': lastName,
+      'email': email,
+      'skills': skills,
+      'experience': experience,
+      'phoneNumber': phoneNumber,
+      'imageUrl': imageUrl,
+      //'isVolunteer': isVolunteer,
+    };
+  }
+}
