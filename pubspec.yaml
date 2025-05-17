@@ -36,7 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   supabase_flutter: ^2.9.0
   get: ^4.7.2
-  image_picker: ^1.1.2
+  image_picker: ^1.0.7
   shared_preferences: ^2.2.2
   file_picker: ^10.1.8
   path_provider: ^2.1.1
@@ -63,6 +63,11 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - assets/icons/login.png
+    - assets/icons/volunteer_signup.png
+    - assets/icons/organization_signup.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

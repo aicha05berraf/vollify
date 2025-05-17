@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vollify/services/auth_service.dart';
-//import 'package:vollify/services/user_service.dart';
-//import 'package:vollify/services/organization_service.dart';
-//import 'package:vollify/controllers/user_controller.dart';
-//import 'package:vollify/models/user_model.dart';
 
 class OrganizationSignupScreen extends StatefulWidget {
   const OrganizationSignupScreen({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _OrganizationSignupScreenState createState() =>
-      _OrganizationSignupScreenState();
+  _OrganizationSignupScreenState createState() => _OrganizationSignupScreenState();
 }
 
 class _OrganizationSignupScreenState extends State<OrganizationSignupScreen> {
@@ -25,14 +20,12 @@ class _OrganizationSignupScreenState extends State<OrganizationSignupScreen> {
   final TextEditingController _contactController = TextEditingController();
 
   bool _isLoading = false;
-  final String? imageUrl = null; // Placeholder for image URL
 
   Future<void> _signUp() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _isLoading = true);
 
     try {
-      // 1. Create user in Supabase Auth
       await AuthService().signUpOrganization(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
@@ -41,37 +34,12 @@ class _OrganizationSignupScreenState extends State<OrganizationSignupScreen> {
         socialMediaLinks: [_socialMediaController.text.trim()],
         contactNumber: _contactController.text.trim(),
       );
-      /*
-      final user = authResponse;
-      if (user == null) throw Exception('Signup failed: No user returned.');
-
-      final userId = user.id;
-
-      // 2. Create user record in users table
-      final userModel = UserModel(
-        id: userId,
-        email: _emailController.text.trim(),
-        role: 'organization',
-        createdAt: DateTime.now(),
-      );
-      //await UserService().createUser(userModel.toMap());
-
-      // 3. Create organization record in organizations table
-      /*await OrganizationService().createOrganization({
-        'id': userId,
-        'location': _locationController.text.trim(),
-        'socialMedia': _socialMediaController.text.trim(),
-      });
-*/ */
-      // 4. Set user in controller
-      //Get.find<UserController>().setUser(userModel);
       Get.snackbar(
         'Signup Successful',
         'Welcome ${_nameController.text.trim()}',
         backgroundColor: Colors.green[700],
         colorText: Colors.white,
       );
-      // 5. Navigate to organization home
       Get.offAllNamed('/login');
     } catch (e) {
       Get.snackbar(
@@ -85,111 +53,156 @@ class _OrganizationSignupScreenState extends State<OrganizationSignupScreen> {
     }
   }
 
+  InputDecoration _buildInputDecoration(String label, IconData icon) {
+    return InputDecoration(
+      labelText: label,
+      prefixIcon: Icon(icon, color: Color(0xFF20331B)),
+      filled: true,
+      // ignore: deprecated_member_use
+      fillColor: Colors.white.withOpacity(0.9),
+      contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Organization Signup')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            children: [
-              TextFormField(
-                controller: _nameController,
-                decoration: InputDecoration(labelText: 'Name'),
-                validator:
-                    (value) =>
-                        value == null || value.isEmpty
-                            ? 'Please enter the organization name'
-                            : null,
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: _emailController,
-                decoration: InputDecoration(labelText: 'Email'),
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter an email address';
-                  }
-                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                    return 'Please enter a valid email address';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: _locationController,
-                decoration: InputDecoration(labelText: 'Location'),
-                validator:
-                    (value) =>
-                        value == null || value.isEmpty
-                            ? 'Please enter the location'
-                            : null,
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: _socialMediaController,
-                decoration: InputDecoration(labelText: 'Social Media Links'),
-                validator:
-                    (value) =>
-                        value == null || value.isEmpty
-                            ? 'Please enter social media links'
-                            : null,
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: _contactController,
-                decoration: InputDecoration(labelText: 'Contact Number'),
-                keyboardType: TextInputType.phone,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a contact number';
-                  }
-                  if (!RegExp(r'^\d+$').hasMatch(value)) {
-                    return 'Please enter a valid contact number';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: _passwordController,
-                decoration: InputDecoration(labelText: 'Password'),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a password';
-                  }
-                  if (value.length < 6) {
-                    return 'Password must be at least 6 characters long';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Confirm Password'),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please confirm your password';
-                  }
-                  if (value != _passwordController.text) {
-                    return 'Passwords do not match';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 32),
-              ElevatedButton(
-                onPressed: _isLoading ? null : _signUp,
-                child:
-                    _isLoading ? CircularProgressIndicator() : Text('Sign Up'),
-              ),
-            ],
+      appBar: AppBar(
+        title: const Text('Organization Sign Up'),
+        backgroundColor: const Color(0xFF20331B),
+        foregroundColor: Colors.white,
+        centerTitle: true,
+        elevation: 0,
+      ),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFC3CA92), Color(0xFF20331B)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+          child: Form(
+            key: _formKey,
+            child: ListView(
+              children: [
+                const SizedBox(height: 24),
+                // Centered illustration
+                Center(
+                  child: Image.asset(
+                    'assets/icons/organization_signup.png',
+                    height: 110,
+                  ),
+                ),
+                const SizedBox(height: 32),
+                TextFormField(
+                  controller: _nameController,
+                  decoration: _buildInputDecoration('Organization Name', Icons.business),
+                  validator: (value) =>
+                      value == null || value.isEmpty ? 'Please enter the organization name' : null,
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: _emailController,
+                  decoration: _buildInputDecoration('Email', Icons.mail_outline),
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter an email address';
+                    }
+                    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                      return 'Please enter a valid email address';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: _locationController,
+                  decoration: _buildInputDecoration('Location', Icons.location_on),
+                  validator: (value) =>
+                      value == null || value.isEmpty ? 'Please enter the location' : null,
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: _socialMediaController,
+                  decoration: _buildInputDecoration('Social Media Links', Icons.link),
+                  validator: (value) =>
+                      value == null || value.isEmpty ? 'Please enter social media links' : null,
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: _contactController,
+                  decoration: _buildInputDecoration('Contact Number', Icons.phone),
+                  keyboardType: TextInputType.phone,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a contact number';
+                    }
+                    if (!RegExp(r'^\d+$').hasMatch(value)) {
+                      return 'Please enter a valid contact number';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: _passwordController,
+                  decoration: _buildInputDecoration('Password', Icons.lock_outline),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a password';
+                    }
+                    if (value.length < 6) {
+                      return 'Password must be at least 6 characters long';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  decoration: _buildInputDecoration('Confirm Password', Icons.lock_outline),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please confirm your password';
+                    }
+                    if (value != _passwordController.text) {
+                      return 'Passwords do not match';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 32),
+                ElevatedButton(
+                  onPressed: _isLoading ? null : _signUp,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF20331B),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: _isLoading
+                      ? const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
+                        )
+                      : const Text(
+                          'Sign Up',
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
