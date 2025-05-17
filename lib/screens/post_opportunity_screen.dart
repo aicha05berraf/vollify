@@ -33,6 +33,7 @@ class _PostOpportunityScreenState extends State<PostOpportunityScreen> {
       try {
         // Get organization ID from controller
         final orgController = Get.find<OrganizationController>();
+        await orgController.fetchOrganizationData();
         final orgName = orgController.name.value;
 
         await OpportunityService().createOpportunity({
