@@ -68,7 +68,7 @@ class _OrganizationSignupScreenState extends State<OrganizationSignupScreen> {
       Get.snackbar(
         'Signup Successful',
         'Welcome ${_nameController.text.trim()}',
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.green[700],
         colorText: Colors.white,
       );
       // 5. Navigate to organization home

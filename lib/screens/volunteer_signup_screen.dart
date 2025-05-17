@@ -33,7 +33,7 @@ class _VolunteerSignupScreenState extends State<VolunteerSignupScreen> {
         firstName: _firstNameController.text.trim(),
         lastName: _lastNameController.text.trim(),
         phoneNumber: _phoneController.text.trim(),
-        skills: _skillsController.text.trim(),
+        skills: [_skillsController.text.trim()],
         experience: _experienceController.text.trim(),
       );
 

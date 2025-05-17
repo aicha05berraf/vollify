@@ -15,7 +15,7 @@ class AuthService {
     required String firstName,
     required String lastName,
     required String phoneNumber,
-    required String skills,
+    required List<String> skills,
     required String experience,
     String? profileImage,
   }) async {
