@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vollify/controllers/user_controller.dart';
-//import 'package:vollify/models/volunteer_model.dart';
 
 class VolunteerHomeScreen extends StatelessWidget {
   const VolunteerHomeScreen({super.key});
@@ -10,64 +9,135 @@ class VolunteerHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final userController = Get.find<UserController>();
 
-    return Scaffold(
-      appBar: AppBar(title: Text('Volunteer Home')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Obx(() {
-              final user = userController.user.value;
+    final List<_HomeCardData> cards = [
+      _HomeCardData(
+        title: 'Profile Screen',
+        icon: Icons.account_circle_outlined,
+        color: const Color(0xFF354C2B),
+        route: '/volunteerProfile',
+      ),
+      _HomeCardData(
+        title: 'Search Opportunity',
+        icon: Icons.search_outlined,
+        color: const Color(0xFF4E653D),
+        route: '/searchOpportunity',
+      ),
+      _HomeCardData(
+        title: 'Write Reviews',
+        icon: Icons.rate_review_outlined,
+        color: const Color(0xFF697E50),
+        route: '/writeReviews',
+      ),
+      _HomeCardData(
+        title: 'Notifications',
+        icon: Icons.notifications_outlined,
+        color: const Color(0xFF859864),
+        route: '/notifications',
+      ),
+    ];
 
-              return Text(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF20331B),
+        title: const Text('Volunteer Home'),
+        centerTitle: true,
+        elevation: 0,
+        foregroundColor: Colors.white,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 28.0),
+        child: Obx(() {
+          final user = userController.user.value;
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
                 user != null
                     ? 'Welcome, ${user.firstName} ${user.lastName}!'
                     : 'Welcome, Volunteer!',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              );
-            }),
-            SizedBox(height: 32),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/volunteerProfile');
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50),
+                style: const TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF20331B),
+                ),
               ),
-              child: Text('Profile Screen'),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/searchOpportunity');
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50),
+              const SizedBox(height: 32),
+              Expanded(
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 24,
+                  crossAxisSpacing: 24,
+                  childAspectRatio: 1.1,
+                  children: cards.map((card) {
+                    return _HomeCard(
+                      data: card,
+                    );
+                  }).toList(),
+                ),
               ),
-              child: Text('Search Opportunity'),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/writeReviews');
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50),
+            ],
+          );
+        }),
+      ),
+    );
+  }
+}
+
+class _HomeCardData {
+  final String title;
+  final IconData icon;
+  final Color color;
+  final String route;
+
+  _HomeCardData({
+    required this.title,
+    required this.icon,
+    required this.color,
+    required this.route,
+  });
+}
+
+class _HomeCard extends StatelessWidget {
+  final _HomeCardData data;
+
+  const _HomeCard({required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      // ignore: deprecated_member_use
+      color: data.color.withOpacity(0.95),
+      borderRadius: BorderRadius.circular(18),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(18),
+        onTap: () {
+          Navigator.pushNamed(context, data.route);
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 22, horizontal: 12),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                data.icon,
+                size: 44,
+                color: Colors.white,
               ),
-              child: Text('Write Reviews'),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/notifications');
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50),
+              const SizedBox(height: 18),
+              Text(
+                data.title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                  letterSpacing: 0.5,
+                ),
               ),
-              child: Text('Notifications'),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

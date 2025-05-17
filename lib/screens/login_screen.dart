@@ -74,6 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0xFF20331B),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {

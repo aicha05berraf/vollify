@@ -80,13 +80,7 @@ class _VolunteerSignupScreenState extends State<VolunteerSignupScreen> {
         elevation: 0,
       ),
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFFC3CA92), Color(0xFF20331B)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
+        color: Colors.white, // Set white background
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
           child: Form(
@@ -98,7 +92,7 @@ class _VolunteerSignupScreenState extends State<VolunteerSignupScreen> {
                 Center(
                   child: Image.asset(
                     'assets/icons/volunteer_signup.png',
-                    height: 110,
+                    height: 140, // Slightly increased size
                   ),
                 ),
                 const SizedBox(height: 32),
