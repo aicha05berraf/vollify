@@ -150,97 +150,131 @@ class _ManageVolunteersScreenState extends State<ManageVolunteersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Manage Volunteers')),
-      body:
-          _isLoading
-              ? Center(child: CircularProgressIndicator())
-              : Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: ListView.builder(
-                  itemCount: _applications.length,
-                  itemBuilder: (context, index) {
-                    final application = _applications[index];
-                    final status =
-                        (application['status'] ?? '').toString().toLowerCase();
-                    final fullName =
-                        '${application['volunteer_name'] ?? ''} ${application['volunteer_lastname'] ?? ''}';
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF20331B), // Match HomeScreen
+        title: const Text(
+          'Manage Volunteers',
+          style: TextStyle(color: Colors.white),
+        ),
+        iconTheme: const IconThemeData(color: Colors.white),
+        elevation: 0,
+        centerTitle: true,
+        foregroundColor: Colors.white,
+      ),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ListView.builder(
+                itemCount: _applications.length,
+                itemBuilder: (context, index) {
+                  final application = _applications[index];
+                  final status =
+                      (application['status'] ?? '').toString().toLowerCase();
+                  final fullName =
+                      '${application['volunteer_name'] ?? ''} ${application['volunteer_lastname'] ?? ''}';
 
-                    return Card(
-                      margin: const EdgeInsets.only(bottom: 16.0),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              fullName,
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
+                  return Card(
+                    margin: const EdgeInsets.only(bottom: 16.0),
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            fullName,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF20331B),
                             ),
-                            SizedBox(height: 8),
-                            Text(
-                              'Opportunity: ${application['opportunity_title'] ?? ''}',
-                              style: TextStyle(fontSize: 16),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Opportunity: ${application['opportunity_title'] ?? ''}',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Color(0xFF354C2B),
                             ),
-                            SizedBox(height: 8),
-                            Text(
-                              'Skills: ${application['skills'] ?? ''}',
-                              style: TextStyle(fontSize: 16),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Skills: ${application['skills'] ?? ''}',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Color(0xFF354C2B),
                             ),
-                            SizedBox(height: 8),
-                            Text(
-                              'Status: ${application['status']}',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color:
-                                    status == 'accepted'
-                                        ? Colors.green
-                                        : status == 'rejected'
-                                        ? Colors.red
-                                        : Colors.orange,
-                              ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Status: ${application['status']}',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: status == 'accepted'
+                                  ? Colors.green
+                                  : status == 'rejected'
+                                      ? Colors.red
+                                      : Colors.orange,
                             ),
-                            SizedBox(height: 16),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                ElevatedButton(
-                                  onPressed:
-                                      status == 'pending'
-                                          ? () => _updateApplicationStatus(
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: ElevatedButton(
+                                  onPressed: status == 'pending'
+                                      ? () => _updateApplicationStatus(
                                             index,
                                             'Accepted',
                                           )
-                                          : null,
+                                      : null,
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.green,
+                                    backgroundColor: Colors.green, // Accept is green
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
                                   ),
-                                  child: Text('Accept'),
+                                  child: const Text(
+                                    'Accept',
+                                    style: TextStyle(color: Colors.white), // White text
+                                  ),
                                 ),
-                                ElevatedButton(
-                                  onPressed:
-                                      status == 'pending'
-                                          ? () => _updateApplicationStatus(
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: ElevatedButton(
+                                  onPressed: status == 'pending'
+                                      ? () => _updateApplicationStatus(
                                             index,
                                             'Rejected',
                                           )
-                                          : null,
+                                      : null,
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.red,
+                                    backgroundColor: Colors.red, // Reject is red
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
                                   ),
-                                  child: Text('Reject'),
+                                  child: const Text(
+                                    'Reject',
+                                    style: TextStyle(color: Colors.white), // White text
+                                  ),
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
+            ),
     );
   }
 }

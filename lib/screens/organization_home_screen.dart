@@ -54,34 +54,54 @@ class OrganizationHomeScreen extends StatelessWidget {
           final userController = Get.find<UserController>();
           final user = userController.user.value;
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                user != null && user.orgName != null
-                    ? 'Welcome, ${user.orgName}!'
-                    : 'Welcome, Organization!',
-                style: const TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF20331B),
+          return LayoutBuilder(
+            builder: (context, constraints) {
+              return Center(
+                child: SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight,
+                    ),
+                    child: IntrinsicHeight(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            user != null && user.orgName != null
+                                ? 'Welcome, ${user.orgName}!'
+                                : 'Welcome, Organization!',
+                            style: const TextStyle(
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF20331B),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 32),
+                          SizedBox(
+                            height: 340, // Adjust as needed for your design
+                            child: GridView.count(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 24,
+                              crossAxisSpacing: 24,
+                              childAspectRatio: 1.1,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              children: cards.map((card) {
+                                return _HomeCard(
+                                  data: card,
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 32),
-              Expanded(
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 24,
-                  crossAxisSpacing: 24,
-                  childAspectRatio: 1.1,
-                  children: cards.map((card) {
-                    return _HomeCard(
-                      data: card,
-                    );
-                  }).toList(),
-                ),
-              ),
-            ],
+              );
+            },
           );
         }),
       ),

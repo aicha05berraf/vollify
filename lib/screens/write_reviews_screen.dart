@@ -113,100 +113,132 @@ class _WriteReviewsScreenState extends State<WriteReviewsScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    const Color appBarColor = Color(0xFF20331B);
+
     return Scaffold(
-      appBar: AppBar(title: Text('Write Reviews')),
-      body:
-          _isLoading
-              ? Center(child: CircularProgressIndicator())
-              : Padding(
-                padding: const EdgeInsets.all(16.0),
-                child:
-                    _opportunities.isEmpty
-                        ? Center(child: Text('No opportunities to review yet.'))
-                        : ListView.builder(
-                          itemCount: _opportunities.length,
-                          itemBuilder: (context, index) {
-                            final opportunity = _opportunities[index];
-                            return Card(
-                              color: theme.cardColor,
-                              margin: const EdgeInsets.only(bottom: 16.0),
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Opportunity Title
-                                    Text(
-                                      opportunity['title'],
-                                      style: theme.textTheme.titleLarge
-                                          ?.copyWith(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                    ),
-                                    SizedBox(height: 8),
-
-                                    // Organization Name
-                                    Text(
-                                      'Organization: ${opportunity['organizationName']}',
-                                      style: theme.textTheme.bodyMedium
-                                          ?.copyWith(
-                                            color: theme.colorScheme.secondary,
-                                          ),
-                                    ),
-                                    SizedBox(height: 16),
-
-                                    // Review Text Field
-                                    TextField(
-                                      onChanged: (value) {
+      appBar: AppBar(
+        backgroundColor: appBarColor,
+        title: const Text(
+          'Write Reviews',
+          style: TextStyle(color: Colors.white),
+        ),
+        iconTheme: const IconThemeData(color: Colors.white),
+        centerTitle: true,
+        elevation: 0,
+        foregroundColor: Colors.white,
+      ),
+      backgroundColor: Colors.white, // Consistent with SignUp screen
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: _opportunities.isEmpty
+                  ? const Center(child: Text('No opportunities to review yet.'))
+                  : ListView.builder(
+                      itemCount: _opportunities.length,
+                      itemBuilder: (context, index) {
+                        final opportunity = _opportunities[index];
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 20.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                // ignore: deprecated_member_use
+                                color: appBarColor.withOpacity(0.10),
+                                blurRadius: 8,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Opportunity Title
+                                Text(
+                                  opportunity['title'],
+                                  style: theme.textTheme.titleLarge?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: appBarColor,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                // Organization Name
+                                Text(
+                                  'Organization: ${opportunity['organizationName']}',
+                                  style: theme.textTheme.bodyMedium?.copyWith(
+                                    color: const Color(0xFF354C2B),
+                                  ),
+                                ),
+                                const SizedBox(height: 16),
+                                // Review Text Field
+                                TextField(
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _opportunities[index]['review'] = value;
+                                    });
+                                  },
+                                  decoration: const InputDecoration(
+                                    labelText: 'Write your review',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  maxLines: 3,
+                                  style: theme.textTheme.bodyMedium,
+                                ),
+                                const SizedBox(height: 16),
+                                // Rating Stars
+                                Row(
+                                  children: List.generate(5, (starIndex) {
+                                    return IconButton(
+                                      icon: Icon(
+                                        Icons.star,
+                                        color: starIndex <
+                                                opportunity['rating']
+                                            ? Colors.amber
+                                            : Colors.grey,
+                                      ),
+                                      onPressed: () {
                                         setState(() {
-                                          _opportunities[index]['review'] =
-                                              value;
+                                          _opportunities[index]['rating'] =
+                                              starIndex + 1;
                                         });
                                       },
-                                      decoration: InputDecoration(
-                                        labelText: 'Write your review',
-                                        border: OutlineInputBorder(),
-                                      ),
-                                      maxLines: 3,
-
-                                      style: theme.textTheme.bodyMedium,
-                                    ),
-                                    SizedBox(height: 16),
-                                    // Rating Stars
-                                    Row(
-                                      children: List.generate(5, (starIndex) {
-                                        return IconButton(
-                                          icon: Icon(
-                                            Icons.star,
-                                            color:
-                                                starIndex <
-                                                        opportunity['rating']
-                                                    ? Colors.amber
-                                                    : Colors.grey,
-                                          ),
-                                          onPressed: () {
-                                            setState(() {
-                                              _opportunities[index]['rating'] =
-                                                  starIndex + 1;
-                                            });
-                                          },
-                                        );
-                                      }),
-                                    ),
-                                    SizedBox(height: 16),
-
-                                    // Submit Button
-                                    ElevatedButton(
-                                      onPressed: () => _submitReview(index),
-                                      child: Text('Submit Review'),
-                                    ),
-                                  ],
+                                    );
+                                  }),
                                 ),
-                              ),
-                            );
-                          },
-                        ),
-              ),
+                                const SizedBox(height: 16),
+                                // Submit Button
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    onPressed: () => _submitReview(index),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: appBarColor,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 14),
+                                    ),
+                                    child: const Text(
+                                      'Submit Review',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+            ),
     );
   }
 }

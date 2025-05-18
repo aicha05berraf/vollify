@@ -69,48 +69,60 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    const Color appBarColor = Color(0xFF20331B);
+    const Color bellColor = Color(0xFFC3CA92);
+
     return Scaffold(
-      appBar: AppBar(title: Text('Notifications')),
-      body:
-          _isLoading
-              ? Center(child: CircularProgressIndicator())
-              : Padding(
-                padding: const EdgeInsets.all(16.0),
-                child:
-                    _notifications.isEmpty
-                        ? Center(child: Text('No notifications yet.'))
-                        : ListView.builder(
-                          itemCount: _notifications.length,
-                          itemBuilder: (context, index) {
-                            final notification = _notifications[index];
-                            return Card(
-                              margin: const EdgeInsets.only(bottom: 16.0),
-                              child: ListTile(
-                                leading: Icon(
-                                  Icons.notifications,
-                                  color: Colors.green,
-                                  size: 40,
-                                ),
-                                title: Text(
-                                  notification['message'] ?? 'No message',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                subtitle: Text(
-                                  notification['created_at'] != null
-                                      ? DateTime.parse(
-                                        notification['created_at'],
-                                      ).toLocal().toString()
-                                      : '',
-                                  style: TextStyle(color: Colors.grey),
-                                ),
+      appBar: AppBar(
+        backgroundColor: appBarColor,
+        title: const Text(
+          'Notifications',
+          style: TextStyle(color: Colors.white),
+        ),
+        iconTheme: const IconThemeData(color: Colors.white),
+        centerTitle: true,
+        elevation: 0,
+        foregroundColor: Colors.white,
+      ),
+      backgroundColor: Colors.white, // Consistent with SignUp page
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: _notifications.isEmpty
+                  ? const Center(child: Text('No notifications yet.'))
+                  : ListView.builder(
+                      itemCount: _notifications.length,
+                      itemBuilder: (context, index) {
+                        final notification = _notifications[index];
+                        return Card(
+                          margin: const EdgeInsets.only(bottom: 16.0),
+                          child: ListTile(
+                            leading: Icon(
+                              Icons.notifications,
+                              color: bellColor,
+                              size: 40,
+                            ),
+                            title: Text(
+                              notification['message'] ?? 'No message',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
                               ),
-                            );
-                          },
-                        ),
-              ),
+                            ),
+                            subtitle: Text(
+                              notification['created_at'] != null
+                                  ? DateTime.parse(
+                                      notification['created_at'],
+                                    ).toLocal().toString()
+                                  : '',
+                              style: const TextStyle(color: Colors.grey),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+            ),
     );
   }
 }

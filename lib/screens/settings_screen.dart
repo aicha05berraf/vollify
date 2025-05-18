@@ -112,27 +112,62 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            // Privacy Policy
-            ListTile(
-              leading: const Icon(Icons.privacy_tip),
-              title: const Text('Privacy Policy'),
-              onTap: _showPrivacyPolicy,
-            ),
-            const Divider(),
+    const darkGreen = Color(0xFF354C2B);
 
-            // Logout
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Logout'),
-              onTap: _logout,
-            ),
-          ],
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF20331B),
+        title: const Text(
+          'Settings',
+          style: TextStyle(color: Colors.white),
+        ),
+        iconTheme: const IconThemeData(color: Colors.white),
+        centerTitle: true,
+        elevation: 0,
+        foregroundColor: Colors.white,
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Large settings icon
+              Icon(
+                Icons.settings,
+                size: 80,
+                color: darkGreen,
+              ),
+              const SizedBox(height: 32),
+              // Privacy Policy option
+              ListTile(
+                leading: const Icon(Icons.privacy_tip, color: darkGreen),
+                title: const Text(
+                  'Privacy Policy',
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                onTap: _showPrivacyPolicy,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+              ),
+              const Divider(),
+              // Logout option
+              ListTile(
+                leading: const Icon(Icons.logout, color: Colors.red),
+                title: const Text(
+                  'Logout',
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                onTap: _logout,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+              ),
+            ],
+          ),
         ),
       ),
     );

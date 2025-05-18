@@ -45,41 +45,59 @@ class VolunteerHomeScreen extends StatelessWidget {
         elevation: 0,
         foregroundColor: Colors.white,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 28.0),
-        child: Obx(() {
-          final user = userController.user.value;
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight,
+              ),
+              child: IntrinsicHeight(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 28.0),
+                  child: Obx(() {
+                    final user = userController.user.value;
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                user != null
-                    ? 'Welcome, ${user.firstName} ${user.lastName}!'
-                    : 'Welcome, Volunteer!',
-                style: const TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF20331B),
-                ),
-              ),
-              const SizedBox(height: 32),
-              Expanded(
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 24,
-                  crossAxisSpacing: 24,
-                  childAspectRatio: 1.1,
-                  children: cards.map((card) {
-                    return _HomeCard(
-                      data: card,
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          user != null
+                              ? 'Welcome, ${user.firstName} ${user.lastName}!'
+                              : 'Welcome, Volunteer!',
+                          style: const TextStyle(
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF20331B),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 32),
+                        SizedBox(
+                          height: 340, // Adjust height as needed for your design
+                          child: GridView.count(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 24,
+                            crossAxisSpacing: 24,
+                            childAspectRatio: 1.1,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            children: cards.map((card) {
+                              return _HomeCard(
+                                data: card,
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ],
                     );
-                  }).toList(),
+                  }),
                 ),
               ),
-            ],
+            ),
           );
-        }),
+        },
       ),
     );
   }
