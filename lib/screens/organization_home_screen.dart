@@ -49,59 +49,39 @@ class OrganizationHomeScreen extends StatelessWidget {
         foregroundColor: Colors.white,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 28.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
         child: Obx(() {
           final userController = Get.find<UserController>();
           final user = userController.user.value;
 
-          return LayoutBuilder(
-            builder: (context, constraints) {
-              return Center(
-                child: SingleChildScrollView(
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      minHeight: constraints.maxHeight,
-                    ),
-                    child: IntrinsicHeight(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            user != null && user.orgName != null
-                                ? 'Welcome, ${user.orgName}!'
-                                : 'Welcome, Organization!',
-                            style: const TextStyle(
-                              fontSize: 26,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF20331B),
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 32),
-                          SizedBox(
-                            height: 340, // Adjust as needed for your design
-                            child: GridView.count(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 24,
-                              crossAxisSpacing: 24,
-                              childAspectRatio: 1.1,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              children: cards.map((card) {
-                                return _HomeCard(
-                                  data: card,
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+          return Column(
+            children: [
+              Text(
+                user != null && user.orgName != null
+                    ? 'Welcome, ${user.orgName}!'
+                    : 'Welcome, Organization!',
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF20331B),
                 ),
-              );
-            },
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20),
+              Expanded(
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 16,
+                  childAspectRatio: 0.9, // Adjusted for larger cards
+                  padding: const EdgeInsets.all(8),
+                  children:
+                      cards.map((card) {
+                        return _HomeCard(data: card);
+                      }).toList(),
+                ),
+              ),
+            ],
           );
         }),
       ),
@@ -132,12 +112,11 @@ class _HomeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      // ignore: deprecated_member_use
-      color: data.color.withOpacity(0.95),
-      borderRadius: BorderRadius.circular(18),
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: InkWell(
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(16),
         onTap: () async {
           if (data.onTap != null) {
             await data.onTap!();
@@ -145,25 +124,24 @@ class _HomeCard extends StatelessWidget {
             Navigator.pushNamed(context, data.route);
           }
         },
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 22, horizontal: 12),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: data.color.withOpacity(0.95),
+          ),
+          padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                data.icon,
-                size: 44,
-                color: Colors.white,
-              ),
-              const SizedBox(height: 18),
+              Icon(data.icon, size: 48, color: Colors.white),
+              const SizedBox(height: 16),
               Text(
                 data.title,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  fontSize: 16,
+                  fontSize: 18, // Increased font size
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
-                  letterSpacing: 0.5,
                 ),
               ),
             ],
