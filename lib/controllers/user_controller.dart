@@ -16,12 +16,12 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class UserController extends GetxController {
   //var user = Rxn<UserModel>();
 
-  Rxn<dynamic> user =
+  Rxn<UserModel> user =
       Rxn<
-        dynamic
+        UserModel
       >(); // Can hold UserModel, VolunteerModel, or OrganizationModel
 
-  void setUser(dynamic newUser) {
+  void setUser(UserModel newUser) {
     user.value = newUser;
   }
 
@@ -55,9 +55,11 @@ class UserController extends GetxController {
     }
   }
 
-  Future<void> fetchUserById(String id) async {
+  Future<UserModel> fetchUserById(String id) async {
     final data = await supabase.from('users').select().eq('id', id).single();
-    user.value = User.fromJson(data) as UserModel?;
+    final model = UserModel.fromJson(data);
+    user.value = model;
+    return model;
   }
 
   Future<void> uploadVolunteerData({
