@@ -1,9 +1,4 @@
-//import 'dart:io';
-//import 'package:get/get.dart';
-//import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-//import 'package:vollify/controllers/user_controller.dart';
-//import 'package:vollify/controllers/user_controller.dart';
 import 'package:vollify/models/user_model.dart';
 
 class UserService {
@@ -19,25 +14,6 @@ class UserService {
     }
   }
 
-  /*Future<String> uploadProfileImage(String fileName, File image) async {
-    await _client.storage
-        .from('avatars')
-        .upload(
-          'public/$fileName',
-          image,
-          fileOptions: FileOptions(cacheControl: '3600', upsert: true),
-        );
-
-    return _client.storage.from('avatars').getPublicUrl('public/$fileName');
-  }
-
-  Future<void> updateUserProfile(dynamic user) async {
-    final updatedData =
-        user.toMap()
-          ..removeWhere((key, value) => value == null); // Avoid null overwrite
-
-    await _client.from('users').update(updatedData).eq('id', user.id);
-  }*/
 
   Future<void> createUser(Map<String, dynamic> userData) async {
     try {
@@ -64,4 +40,4 @@ class UserService {
   }
 }
 
-// Uploads image and returns public URL
+

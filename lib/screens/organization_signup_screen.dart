@@ -7,7 +7,8 @@ class OrganizationSignupScreen extends StatefulWidget {
 
   @override
   // ignore: library_private_types_in_public_api
-  _OrganizationSignupScreenState createState() => _OrganizationSignupScreenState();
+  _OrganizationSignupScreenState createState() =>
+      _OrganizationSignupScreenState();
 }
 
 class _OrganizationSignupScreenState extends State<OrganizationSignupScreen> {
@@ -76,7 +77,7 @@ class _OrganizationSignupScreenState extends State<OrganizationSignupScreen> {
         elevation: 0,
       ),
       body: Container(
-        color: Colors.white, // Set white background
+        color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
           child: Form(
@@ -84,24 +85,33 @@ class _OrganizationSignupScreenState extends State<OrganizationSignupScreen> {
             child: ListView(
               children: [
                 const SizedBox(height: 24),
-                // Centered illustration
+
                 Center(
                   child: Image.asset(
                     'assets/icons/organization_signup.png',
-                    height: 140, // Slightly increased size
+                    height: 140,
                   ),
                 ),
                 const SizedBox(height: 32),
                 TextFormField(
                   controller: _nameController,
-                  decoration: _buildInputDecoration('Organization Name', Icons.business),
-                  validator: (value) =>
-                      value == null || value.isEmpty ? 'Please enter the organization name' : null,
+                  decoration: _buildInputDecoration(
+                    'Organization Name',
+                    Icons.business,
+                  ),
+                  validator:
+                      (value) =>
+                          value == null || value.isEmpty
+                              ? 'Please enter the organization name'
+                              : null,
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _emailController,
-                  decoration: _buildInputDecoration('Email', Icons.mail_outline),
+                  decoration: _buildInputDecoration(
+                    'Email',
+                    Icons.mail_outline,
+                  ),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -116,21 +126,36 @@ class _OrganizationSignupScreenState extends State<OrganizationSignupScreen> {
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _locationController,
-                  decoration: _buildInputDecoration('Location', Icons.location_on),
-                  validator: (value) =>
-                      value == null || value.isEmpty ? 'Please enter the location' : null,
+                  decoration: _buildInputDecoration(
+                    'Location',
+                    Icons.location_on,
+                  ),
+                  validator:
+                      (value) =>
+                          value == null || value.isEmpty
+                              ? 'Please enter the location'
+                              : null,
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _socialMediaController,
-                  decoration: _buildInputDecoration('Social Media Links', Icons.link),
-                  validator: (value) =>
-                      value == null || value.isEmpty ? 'Please enter social media links' : null,
+                  decoration: _buildInputDecoration(
+                    'Social Media Links',
+                    Icons.link,
+                  ),
+                  validator:
+                      (value) =>
+                          value == null || value.isEmpty
+                              ? 'Please enter social media links'
+                              : null,
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _contactController,
-                  decoration: _buildInputDecoration('Contact Number', Icons.phone),
+                  decoration: _buildInputDecoration(
+                    'Contact Number',
+                    Icons.phone,
+                  ),
                   keyboardType: TextInputType.phone,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -145,7 +170,10 @@ class _OrganizationSignupScreenState extends State<OrganizationSignupScreen> {
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _passwordController,
-                  decoration: _buildInputDecoration('Password', Icons.lock_outline),
+                  decoration: _buildInputDecoration(
+                    'Password',
+                    Icons.lock_outline,
+                  ),
                   obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -159,7 +187,10 @@ class _OrganizationSignupScreenState extends State<OrganizationSignupScreen> {
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
-                  decoration: _buildInputDecoration('Confirm Password', Icons.lock_outline),
+                  decoration: _buildInputDecoration(
+                    'Confirm Password',
+                    Icons.lock_outline,
+                  ),
                   obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -181,19 +212,20 @@ class _OrganizationSignupScreenState extends State<OrganizationSignupScreen> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: _isLoading
-                      ? const SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: Colors.white,
+                  child:
+                      _isLoading
+                          ? const SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
+                          )
+                          : const Text(
+                            'Sign Up',
+                            style: TextStyle(fontSize: 16, color: Colors.white),
                           ),
-                        )
-                      : const Text(
-                          'Sign Up',
-                          style: TextStyle(fontSize: 16, color: Colors.white),
-                        ),
                 ),
               ],
             ),

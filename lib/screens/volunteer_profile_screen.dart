@@ -16,20 +16,20 @@ class VolunteerProfileScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF20331B), // Match Home screen
+        backgroundColor: const Color(0xFF20331B), 
         title: const Text(
           'Volunteer Profile',
           style: TextStyle(color: Colors.white),
         ),
         iconTheme: const IconThemeData(
           color: Colors.white,
-        ), // Back arrow icon color
+        ), 
         actions: [
           IconButton(
             icon: const Icon(
               Icons.settings,
               color: Colors.white,
-            ), // Settings icon color
+            ), 
             onPressed: () => Navigator.pushNamed(context, '/settings'),
           ),
         ],
@@ -57,7 +57,7 @@ class VolunteerProfileScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                    // Profile Picture
+                    
                     CircleAvatar(
                       radius: 80,
                       backgroundImage:
@@ -70,30 +70,30 @@ class VolunteerProfileScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
 
-                    // Volunteer Name (clear, bold, dark)
+                    
                     Text(
                       user!.name,
                       style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF20331B), // Dark green for clarity
+                        color: Color(0xFF20331B), 
                       ),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 4),
 
-                    // Email (clear, regular, dark)
+                    
                     Text(
                       user.email,
                       style: const TextStyle(
                         fontSize: 16,
-                        color: Color(0xFF354C2B), // Forest green for clarity
+                        color: Color(0xFF354C2B), 
                       ),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 16),
 
-                    // Skills
+                    
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(
@@ -121,7 +121,7 @@ class VolunteerProfileScreen extends StatelessWidget {
                       ),
                     ),
 
-                    // Experience
+                    
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(
@@ -149,7 +149,7 @@ class VolunteerProfileScreen extends StatelessWidget {
                       ),
                     ),
 
-                    // Phone Number
+                    
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(
@@ -179,7 +179,7 @@ class VolunteerProfileScreen extends StatelessWidget {
 
                     const SizedBox(height: 18),
 
-                    // Edit Profile Button
+                    
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
@@ -203,7 +203,7 @@ class VolunteerProfileScreen extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(
                             0xFF20331B,
-                          ), // Match AppBar
+                          ), 
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -212,7 +212,7 @@ class VolunteerProfileScreen extends StatelessWidget {
                         child: const Text(
                           'Edit Profile',
                           style: TextStyle(
-                            color: Colors.white, // Button text color
+                            color: Colors.white, 
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -293,20 +293,20 @@ class _EditVolunteerProfileScreenState
       appBar: AppBar(
         backgroundColor: const Color(
           0xFF20331B,
-        ), // Match ProfilePage/HomeScreen
+        ), 
         title: const Text(
           'Edit Profile',
           style: TextStyle(color: Colors.white),
         ),
         iconTheme: const IconThemeData(
           color: Colors.white,
-        ), // Back arrow icon color
+        ), 
         elevation: 0,
         centerTitle: true,
         foregroundColor: Colors.white,
       ),
       body: Container(
-        color: Colors.white, // Ensure background matches Profile Page
+        color: Colors.white, 
         child:
             _isSaving
                 ? const Center(child: CircularProgressIndicator())
@@ -352,7 +352,7 @@ class _EditVolunteerProfileScreenState
                                       Icons.edit,
                                       color: Color(
                                         0xFF697E50,
-                                      ), // Profile image change icon color
+                                      ), 
                                       size: 24,
                                     ),
                                   ),
@@ -443,7 +443,7 @@ class _EditVolunteerProfileScreenState
                                 String? imageUrl =
                                     userController.user.value?.imageUrl;
 
-                                // Handle image upload
+                                
                                 if (_profileImage != null) {
                                   final fileExt =
                                       _profileImage!.path.split('.').last;
@@ -459,7 +459,7 @@ class _EditVolunteerProfileScreenState
                                       .getPublicUrl(fileName);
                                 }
 
-                                // Prepare updates
+                                
                                 final nameParts = _nameController.text
                                     .trim()
                                     .split(' ');
@@ -483,23 +483,21 @@ class _EditVolunteerProfileScreenState
                                   'updated_at':
                                       DateTime.now().toIso8601String(),
                                 };
-                                // 1. perform the upsert – returns List<Map<String,dynamic>>
+                                
                                 final upserted =
                                     await supabase.from('users').upsert({
                                       'id': userController.user.value!.id,
                                       'role': 'volunteer',
                                       ...updates,
                                     }).select();
-                                // force a select so we get the row back
-
-                                // 2. check that we actually got a row back
+                                
                                 if (upserted.isEmpty) {
                                   throw Exception(
                                     'Nothing was updated - upsert returned empty list.',
                                   );
                                 }
 
-                                // Update controller and go back
+                                
                                 await userController.fetchUserById(
                                   userController.user.value!.id,
                                 );
@@ -518,7 +516,7 @@ class _EditVolunteerProfileScreenState
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(
                               0xFF20331B,
-                            ), // Match AppBar
+                            ), 
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -527,7 +525,7 @@ class _EditVolunteerProfileScreenState
                           child: const Text(
                             'Save Changes',
                             style: TextStyle(
-                              color: Colors.white, // Button text color
+                              color: Colors.white, 
                               fontWeight: FontWeight.bold,
                             ),
                           ),

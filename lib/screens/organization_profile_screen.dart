@@ -53,15 +53,15 @@ class OrganizationProfileScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF20331B), // Match Home screen
+        backgroundColor: const Color(0xFF20331B),
         title: const Text(
           'Organization Profile',
           style: TextStyle(color: Colors.white),
         ),
-        iconTheme: const IconThemeData(color: Colors.white), // Back arrow icon color
+        iconTheme: const IconThemeData(color: Colors.white),
         actions: [
           IconButton(
-            icon: const Icon(Icons.settings, color: Colors.white), // Settings icon color
+            icon: const Icon(Icons.settings, color: Colors.white),
             onPressed: () {
               Navigator.pushNamed(context, '/settings');
             },
@@ -94,25 +94,26 @@ class OrganizationProfileScreen extends StatelessWidget {
                 final opportunities = snapshot.data ?? [];
 
                 return Container(
-                  color: Colors.white, // Ensure white background
+                  color: Colors.white,
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        // Profile Picture
                         Center(
                           child: CircleAvatar(
                             radius: 80,
-                            backgroundImage: imagePath.isNotEmpty
-                                ? NetworkImage(imagePath)
-                                : const AssetImage('assets/profile_placeholder.png')
-                                    as ImageProvider,
+                            backgroundImage:
+                                imagePath.isNotEmpty
+                                    ? NetworkImage(imagePath)
+                                    : const AssetImage(
+                                          'assets/profile_placeholder.png',
+                                        )
+                                        as ImageProvider,
                           ),
                         ),
                         const SizedBox(height: 16),
 
-                        // Organization Name
                         Center(
                           child: Text(
                             name,
@@ -125,65 +126,94 @@ class OrganizationProfileScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 8),
 
-                        // Email
                         Center(
                           child: Text(
                             email,
-                            style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey[600],
+                            ),
                           ),
                         ),
                         const SizedBox(height: 16),
 
-                        // Location
                         Container(
                           decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xFF354C2B), width: 1.2),
+                            border: Border.all(
+                              color: Color(0xFF354C2B),
+                              width: 1.2,
+                            ),
                             borderRadius: BorderRadius.circular(12),
                             color: Colors.white,
                           ),
                           margin: const EdgeInsets.symmetric(vertical: 6),
                           child: ListTile(
-                            leading: const Icon(Icons.location_on, color: Color(0xFF4E653D)),
-                            title: const Text('Location', style: TextStyle(color: Color(0xFF354C2B))),
-                            subtitle: Text(location, style: const TextStyle(color: Color(0xFF354C2B))),
-                          ),
-                        ),
-
-                        // Social Media Links
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xFF354C2B), width: 1.2),
-                            borderRadius: BorderRadius.circular(12),
-                            color: Colors.white,
-                          ),
-                          margin: const EdgeInsets.symmetric(vertical: 6),
-                          child: ListTile(
-                            leading: const Icon(Icons.link, color: Color(0xFF4E653D)),
-                            title: const Text('Social Media Links', style: TextStyle(color: Color(0xFF354C2B))),
-                            subtitle: _buildSocialMediaLinks(
-                              socialMedia,
+                            leading: const Icon(
+                              Icons.location_on,
+                              color: Color(0xFF4E653D),
+                            ),
+                            title: const Text(
+                              'Location',
+                              style: TextStyle(color: Color(0xFF354C2B)),
+                            ),
+                            subtitle: Text(
+                              location,
+                              style: const TextStyle(color: Color(0xFF354C2B)),
                             ),
                           ),
                         ),
 
-                        // Contact Number
                         Container(
                           decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xFF354C2B), width: 1.2),
+                            border: Border.all(
+                              color: Color(0xFF354C2B),
+                              width: 1.2,
+                            ),
                             borderRadius: BorderRadius.circular(12),
                             color: Colors.white,
                           ),
                           margin: const EdgeInsets.symmetric(vertical: 6),
                           child: ListTile(
-                            leading: const Icon(Icons.phone, color: Color(0xFF4E653D)),
-                            title: const Text('Contact Number', style: TextStyle(color: Color(0xFF354C2B))),
-                            subtitle: Text(contact, style: const TextStyle(color: Color(0xFF354C2B))),
+                            leading: const Icon(
+                              Icons.link,
+                              color: Color(0xFF4E653D),
+                            ),
+                            title: const Text(
+                              'Social Media Links',
+                              style: TextStyle(color: Color(0xFF354C2B)),
+                            ),
+                            subtitle: _buildSocialMediaLinks(socialMedia),
+                          ),
+                        ),
+
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Color(0xFF354C2B),
+                              width: 1.2,
+                            ),
+                            borderRadius: BorderRadius.circular(12),
+                            color: Colors.white,
+                          ),
+                          margin: const EdgeInsets.symmetric(vertical: 6),
+                          child: ListTile(
+                            leading: const Icon(
+                              Icons.phone,
+                              color: Color(0xFF4E653D),
+                            ),
+                            title: const Text(
+                              'Contact Number',
+                              style: TextStyle(color: Color(0xFF354C2B)),
+                            ),
+                            subtitle: Text(
+                              contact,
+                              style: const TextStyle(color: Color(0xFF354C2B)),
+                            ),
                           ),
                         ),
 
                         const SizedBox(height: 24),
 
-                        // Opportunities Posted Section
                         const Text(
                           'Opportunities Posted',
                           style: TextStyle(
@@ -208,7 +238,7 @@ class OrganizationProfileScreen extends StatelessWidget {
                               return Card(
                                 margin: const EdgeInsets.symmetric(vertical: 4),
                                 elevation: 2,
-                                color: const Color(0xFFC3CA92), // Card background for opportunities
+                                color: const Color(0xFFC3CA92),
                                 child: ListTile(
                                   leading: const Icon(
                                     Icons.event,
@@ -223,7 +253,9 @@ class OrganizationProfileScreen extends StatelessWidget {
                                   ),
                                   subtitle: Text(
                                     opportunity['description'] ?? '',
-                                    style: const TextStyle(color: Color(0xFF354C2B)),
+                                    style: const TextStyle(
+                                      color: Color(0xFF354C2B),
+                                    ),
                                   ),
                                   trailing: const Icon(
                                     Icons.arrow_forward_ios,
@@ -234,132 +266,213 @@ class OrganizationProfileScreen extends StatelessWidget {
                                     showDialog(
                                       context: context,
                                       builder: (context) {
-                                        final Color iconColor = const Color(0xFF697E50);
-                                        final Color bgColor = const Color(0xFFE5EAD2); // lighter shade of #C3CA92
+                                        final Color iconColor = const Color(
+                                          0xFF697E50,
+                                        );
+                                        final Color bgColor = const Color(
+                                          0xFFE5EAD2,
+                                        );
                                         return Dialog(
                                           backgroundColor: bgColor,
-                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              16,
+                                            ),
+                                          ),
                                           child: Padding(
                                             padding: const EdgeInsets.all(24.0),
                                             child: SingleChildScrollView(
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.min,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   // Title
                                                   Row(
                                                     children: [
-                                                      Icon(Icons.event, color: iconColor),
+                                                      Icon(
+                                                        Icons.event,
+                                                        color: iconColor,
+                                                      ),
                                                       const SizedBox(width: 8),
                                                       Expanded(
                                                         child: Text(
-                                                          opportunity['title'] ?? 'Opportunity Details',
-                                                          style: const TextStyle(
-                                                            fontWeight: FontWeight.bold,
-                                                            fontSize: 20,
-                                                            color: Color(0xFF20331B),
-                                                          ),
+                                                          opportunity['title'] ??
+                                                              'Opportunity Details',
+                                                          style:
+                                                              const TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 20,
+                                                                color: Color(
+                                                                  0xFF20331B,
+                                                                ),
+                                                              ),
                                                         ),
                                                       ),
                                                     ],
                                                   ),
                                                   const SizedBox(height: 16),
-                                                  // Description
+
                                                   Row(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
-                                                      Icon(Icons.description, color: iconColor),
+                                                      Icon(
+                                                        Icons.description,
+                                                        color: iconColor,
+                                                      ),
                                                       const SizedBox(width: 8),
                                                       Expanded(
                                                         child: Text(
-                                                          opportunity['description'] ?? '',
-                                                          style: const TextStyle(fontSize: 16),
+                                                          opportunity['description'] ??
+                                                              '',
+                                                          style:
+                                                              const TextStyle(
+                                                                fontSize: 16,
+                                                              ),
                                                         ),
                                                       ),
                                                     ],
                                                   ),
                                                   const SizedBox(height: 14),
-                                                  // Domain
-                                                  if (opportunity['domain'] != null) ...[
+
+                                                  if (opportunity['domain'] !=
+                                                      null) ...[
                                                     Row(
                                                       children: [
-                                                        Icon(Icons.category, color: iconColor),
-                                                        const SizedBox(width: 8),
+                                                        Icon(
+                                                          Icons.category,
+                                                          color: iconColor,
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 8,
+                                                        ),
                                                         Expanded(
                                                           child: Text(
                                                             'Domain: ${opportunity['domain']}',
-                                                            style: const TextStyle(fontSize: 16),
+                                                            style:
+                                                                const TextStyle(
+                                                                  fontSize: 16,
+                                                                ),
                                                           ),
                                                         ),
                                                       ],
                                                     ),
                                                     const SizedBox(height: 14),
                                                   ],
-                                                  // Volunteers Required
-                                                  if (opportunity['volunteers_required'] != null) ...[
+
+                                                  if (opportunity['volunteers_required'] !=
+                                                      null) ...[
                                                     Row(
                                                       children: [
-                                                        Icon(Icons.people, color: iconColor),
-                                                        const SizedBox(width: 8),
+                                                        Icon(
+                                                          Icons.people,
+                                                          color: iconColor,
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 8,
+                                                        ),
                                                         Expanded(
                                                           child: Text(
                                                             'Volunteers Required: ${opportunity['volunteers_required']}',
-                                                            style: const TextStyle(fontSize: 16),
+                                                            style:
+                                                                const TextStyle(
+                                                                  fontSize: 16,
+                                                                ),
                                                           ),
                                                         ),
                                                       ],
                                                     ),
                                                     const SizedBox(height: 14),
                                                   ],
-                                                  // Skills Required
-                                                  if (opportunity['skills_required'] != null) ...[
+
+                                                  if (opportunity['skills_required'] !=
+                                                      null) ...[
                                                     Row(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
                                                       children: [
-                                                        Icon(Icons.build, color: iconColor),
-                                                        const SizedBox(width: 8),
+                                                        Icon(
+                                                          Icons.build,
+                                                          color: iconColor,
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 8,
+                                                        ),
                                                         Expanded(
                                                           child: Text(
                                                             'Skills Required: ${opportunity['skills_required']}',
-                                                            style: const TextStyle(fontSize: 16),
+                                                            style:
+                                                                const TextStyle(
+                                                                  fontSize: 16,
+                                                                ),
                                                           ),
                                                         ),
                                                       ],
                                                     ),
                                                     const SizedBox(height: 14),
                                                   ],
-                                                  // Location
-                                                  if (opportunity['location'] != null) ...[
+
+                                                  if (opportunity['location'] !=
+                                                      null) ...[
                                                     Row(
                                                       children: [
-                                                        Icon(Icons.location_on, color: iconColor),
-                                                        const SizedBox(width: 8),
+                                                        Icon(
+                                                          Icons.location_on,
+                                                          color: iconColor,
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 8,
+                                                        ),
                                                         Expanded(
                                                           child: Text(
                                                             'Location: ${opportunity['location']}',
-                                                            style: const TextStyle(fontSize: 16),
+                                                            style:
+                                                                const TextStyle(
+                                                                  fontSize: 16,
+                                                                ),
                                                           ),
                                                         ),
                                                       ],
                                                     ),
                                                     const SizedBox(height: 20),
                                                   ],
-                                                  // Close button
+
                                                   Align(
                                                     alignment: Alignment.center,
                                                     child: ElevatedButton(
                                                       style: ElevatedButton.styleFrom(
-                                                        backgroundColor: iconColor,
-                                                        foregroundColor: Colors.white,
+                                                        backgroundColor:
+                                                            iconColor,
+                                                        foregroundColor:
+                                                            Colors.white,
                                                         shape: RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(8),
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                8,
+                                                              ),
                                                         ),
-                                                        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                                                        padding:
+                                                            const EdgeInsets.symmetric(
+                                                              horizontal: 32,
+                                                              vertical: 12,
+                                                            ),
                                                       ),
-                                                      onPressed: () => Navigator.of(context).pop(),
+                                                      onPressed:
+                                                          () =>
+                                                              Navigator.of(
+                                                                context,
+                                                              ).pop(),
                                                       child: const Text(
                                                         'Close',
-                                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
@@ -378,7 +491,6 @@ class OrganizationProfileScreen extends StatelessWidget {
 
                         const SizedBox(height: 32),
 
-                        // Edit Profile Button
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
@@ -386,19 +498,21 @@ class OrganizationProfileScreen extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => EditOrganizationProfileScreen(
-                                    name: name,
-                                    email: email,
-                                    location: location,
-                                    socialMedia: socialMedia,
-                                    contact: contact,
-                                    imagePath: imagePath,
-                                  ),
+                                  builder:
+                                      (context) =>
+                                          EditOrganizationProfileScreen(
+                                            name: name,
+                                            email: email,
+                                            location: location,
+                                            socialMedia: socialMedia,
+                                            contact: contact,
+                                            imagePath: imagePath,
+                                          ),
                                 ),
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF20331B), // Match AppBar
+                              backgroundColor: const Color(0xFF20331B),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
@@ -407,7 +521,7 @@ class OrganizationProfileScreen extends StatelessWidget {
                             child: const Text(
                               'Edit Profile',
                               style: TextStyle(
-                                color: Colors.white, // Button text color
+                                color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -422,10 +536,9 @@ class OrganizationProfileScreen extends StatelessWidget {
           },
         );
       }),
-      backgroundColor: Colors.white, // Match signup page background
+      backgroundColor: Colors.white,
     );
   }
-
 }
 
 class EditOrganizationProfileScreen extends StatefulWidget {
@@ -490,18 +603,18 @@ class _EditOrganizationProfileScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF20331B), // Match ProfilePage/HomeScreen
+        backgroundColor: const Color(0xFF20331B),
         title: const Text(
           'Edit Profile',
           style: TextStyle(color: Colors.white),
         ),
-        iconTheme: const IconThemeData(color: Colors.white), // Back arrow icon color
+        iconTheme: const IconThemeData(color: Colors.white),
         elevation: 0,
         centerTitle: true,
         foregroundColor: Colors.white,
       ),
       body: Container(
-        color: Colors.white, // Ensure background matches Profile Page
+        color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Form(
@@ -513,12 +626,15 @@ class _EditOrganizationProfileScreenState
                     children: [
                       CircleAvatar(
                         radius: 80,
-                        backgroundImage: _profileImage != null
-                            ? FileImage(_profileImage!)
-                            : (widget.imagePath != null
-                                ? NetworkImage(widget.imagePath!)
-                                : const AssetImage('assets/profile_placeholder.png')
-                                    as ImageProvider),
+                        backgroundImage:
+                            _profileImage != null
+                                ? FileImage(_profileImage!)
+                                : (widget.imagePath != null
+                                    ? NetworkImage(widget.imagePath!)
+                                    : const AssetImage(
+                                          'assets/profile_placeholder.png',
+                                        )
+                                        as ImageProvider),
                       ),
                       Positioned(
                         bottom: 0,
@@ -536,7 +652,7 @@ class _EditOrganizationProfileScreenState
                             padding: const EdgeInsets.all(8),
                             child: const Icon(
                               Icons.edit,
-                              color: Color(0xFF697E50), // Profile image change icon color
+                              color: Color(0xFF697E50),
                               size: 24,
                             ),
                           ),
@@ -548,7 +664,9 @@ class _EditOrganizationProfileScreenState
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _nameController,
-                  decoration: const InputDecoration(labelText: 'Organization Name'),
+                  decoration: const InputDecoration(
+                    labelText: 'Organization Name',
+                  ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter the organization name';
@@ -585,7 +703,9 @@ class _EditOrganizationProfileScreenState
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _socialMediaController,
-                  decoration: const InputDecoration(labelText: 'Social Media Links'),
+                  decoration: const InputDecoration(
+                    labelText: 'Social Media Links',
+                  ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter the social media links';
@@ -596,7 +716,9 @@ class _EditOrganizationProfileScreenState
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _contactNumberController,
-                  decoration: const InputDecoration(labelText: 'Contact Number'),
+                  decoration: const InputDecoration(
+                    labelText: 'Contact Number',
+                  ),
                   keyboardType: TextInputType.phone,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -614,7 +736,8 @@ class _EditOrganizationProfileScreenState
                     if (_formKey.currentState!.validate()) {
                       try {
                         setState(() => _isSaving = true);
-                        final orgController = Get.find<OrganizationController>();
+                        final orgController =
+                            Get.find<OrganizationController>();
 
                         String? imageUrl = orgController.imageUrl.value;
                         if (_profileImage != null) {
@@ -641,7 +764,8 @@ class _EditOrganizationProfileScreenState
                                   .split(',')
                                   .map((e) => e.trim())
                                   .toList(),
-                          'contact_number': _contactNumberController.text.trim(),
+                          'contact_number':
+                              _contactNumberController.text.trim(),
                           'profile_image': imageUrl,
                           'updated_at': DateTime.now().toIso8601String(),
                         };
@@ -664,7 +788,7 @@ class _EditOrganizationProfileScreenState
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF20331B), // Match AppBar
+                    backgroundColor: const Color(0xFF20331B),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -673,7 +797,7 @@ class _EditOrganizationProfileScreenState
                   child: const Text(
                     'Save Changes',
                     style: TextStyle(
-                      color: Colors.white, // Button text color
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

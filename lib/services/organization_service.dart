@@ -22,15 +22,6 @@ class OrganizationService {
     }
   }
 
-  /*Future<void> updateOrganization(String id, Map<String, dynamic> data) async {
-    try {
-      await _client.from('organizations').update(data).eq('id', id);
-    } catch (e) {
-      throw Exception('Failed to update organization: $e');
-    }
-  }
-}*/
-
   Future<void> updateOrganization(String id, Map<String, dynamic> data) async {
     final response = await supabase.from('organizations').upsert({
       'id': id,

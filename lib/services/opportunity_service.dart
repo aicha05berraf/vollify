@@ -42,7 +42,6 @@ class OpportunityService {
     String volunteerId,
   ) async {
     try {
-      // Check for existing application
       final existing = await supabase
           .from('applications')
           .select()
@@ -56,7 +55,7 @@ class OpportunityService {
         return false;
       }
 
-      // 👇 Fetch the opportunity to get its organization_id
+      
       final opportunity =
           await supabase
               .from('opportunities')
@@ -67,17 +66,17 @@ class OpportunityService {
       final orgId = opportunity['organization_id'];
       print('🏢 Found organization_id: $orgId');
 
-      // ❗ Check if orgId is null
+      
       if (orgId == null) {
         print('🚨 organization_id is null! Cannot apply.');
         return false;
       }
 
-      // ✅ Insert with organization_id
+      
       final response = await supabase.from('applications').insert({
         'opportunity_id': opportunityId,
         'volunteer_id': volunteerId,
-        'organization_id': orgId, // 👈 THIS FIXES EVERYTHING
+        'organization_id': orgId, 
         'status': 'pending',
       });
 

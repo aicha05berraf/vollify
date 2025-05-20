@@ -1,7 +1,7 @@
 class NotificationsModel {
   final String opportunityTitle;
   final String organizationName;
-  final String status; // Accepted, Refused, or Pending
+  final String status;
   final DateTime notificationDate;
 
   NotificationsModel({
@@ -11,7 +11,6 @@ class NotificationsModel {
     required this.notificationDate,
   });
 
-  // Factory method to create a NotificationsModel from a JSON object
   factory NotificationsModel.fromJson(Map<String, dynamic> json) {
     return NotificationsModel(
       opportunityTitle: json['opportunityTitle'],
@@ -21,7 +20,6 @@ class NotificationsModel {
     );
   }
 
-  // Method to convert a NotificationsModel to a JSON object
   Map<String, dynamic> toJson() {
     return {
       'opportunityTitle': opportunityTitle,

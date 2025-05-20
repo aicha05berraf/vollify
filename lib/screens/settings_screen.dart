@@ -117,10 +117,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF20331B),
-        title: const Text(
-          'Settings',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text('Settings', style: TextStyle(color: Colors.white)),
         iconTheme: const IconThemeData(color: Colors.white),
         centerTitle: true,
         elevation: 0,
@@ -132,14 +129,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Large settings icon
-              Icon(
-                Icons.settings,
-                size: 80,
-                color: darkGreen,
-              ),
+              Icon(Icons.settings, size: 80, color: darkGreen),
               const SizedBox(height: 32),
-              // Privacy Policy option
+
               ListTile(
                 leading: const Icon(Icons.privacy_tip, color: darkGreen),
                 title: const Text(
@@ -153,7 +145,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 contentPadding: const EdgeInsets.symmetric(horizontal: 12),
               ),
               const Divider(),
-              // Logout option
+
               ListTile(
                 leading: const Icon(Icons.logout, color: Colors.red),
                 title: const Text(

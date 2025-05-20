@@ -21,7 +21,6 @@ class OpportunityModel {
     required this.phone,
   });
 
-  // Factory method to create an OpportunityModel from a JSON object
   factory OpportunityModel.fromJson(Map<String, dynamic> json) {
     return OpportunityModel(
       title: json['title'],
@@ -36,7 +35,6 @@ class OpportunityModel {
     );
   }
 
-  // Method to convert an OpportunityModel to a JSON object
   Map<String, dynamic> toJson() {
     return {
       'title': title,

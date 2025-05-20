@@ -1,4 +1,3 @@
-//import 'dart:convert';
 
 // ignore_for_file: avoid_print
 
@@ -61,7 +60,7 @@ class OrganizationController extends GetxController {
     }
   }
 
-  // Add this method to your OrganizationController
+  
   Future<void> uploadOrganizationData({
     required String name,
     required String location,
@@ -91,7 +90,7 @@ class OrganizationController extends GetxController {
         )
         .eq('id', userId);
 
-    // Refresh local observable data
+    
     await fetchOrganizationData();
   }
 

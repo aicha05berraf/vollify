@@ -80,7 +80,7 @@ class _VolunteerSignupScreenState extends State<VolunteerSignupScreen> {
         elevation: 0,
       ),
       body: Container(
-        color: Colors.white, // Set white background
+        color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
           child: Form(
@@ -88,31 +88,43 @@ class _VolunteerSignupScreenState extends State<VolunteerSignupScreen> {
             child: ListView(
               children: [
                 const SizedBox(height: 24),
-                // Centered illustration
+
                 Center(
                   child: Image.asset(
                     'assets/icons/volunteer_signup.png',
-                    height: 140, // Slightly increased size
+                    height: 140,
                   ),
                 ),
                 const SizedBox(height: 32),
                 TextFormField(
                   controller: _firstNameController,
                   decoration: _buildInputDecoration('First Name', Icons.person),
-                  validator: (value) =>
-                      value == null || value.isEmpty ? 'Please enter your first name' : null,
+                  validator:
+                      (value) =>
+                          value == null || value.isEmpty
+                              ? 'Please enter your first name'
+                              : null,
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _lastNameController,
-                  decoration: _buildInputDecoration('Last Name', Icons.person_outline),
-                  validator: (value) =>
-                      value == null || value.isEmpty ? 'Please enter your last name' : null,
+                  decoration: _buildInputDecoration(
+                    'Last Name',
+                    Icons.person_outline,
+                  ),
+                  validator:
+                      (value) =>
+                          value == null || value.isEmpty
+                              ? 'Please enter your last name'
+                              : null,
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _emailController,
-                  decoration: _buildInputDecoration('Email', Icons.mail_outline),
+                  decoration: _buildInputDecoration(
+                    'Email',
+                    Icons.mail_outline,
+                  ),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -127,10 +139,15 @@ class _VolunteerSignupScreenState extends State<VolunteerSignupScreen> {
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _phoneController,
-                  decoration: _buildInputDecoration('Phone Number', Icons.phone),
+                  decoration: _buildInputDecoration(
+                    'Phone Number',
+                    Icons.phone,
+                  ),
                   keyboardType: TextInputType.phone,
                   validator: (value) {
-                    if (value == null || value.isEmpty) return 'Please enter your phone number';
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your phone number';
+                    }
                     if (!RegExp(r'^\d+$').hasMatch(value)) {
                       return 'Please enter a valid number';
                     }
@@ -140,21 +157,36 @@ class _VolunteerSignupScreenState extends State<VolunteerSignupScreen> {
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _skillsController,
-                  decoration: _buildInputDecoration('Skills (comma separated)', Icons.build), // wrench icon
-                  validator: (value) =>
-                      value == null || value.isEmpty ? 'Please enter your skills' : null,
+                  decoration: _buildInputDecoration(
+                    'Skills (comma separated)',
+                    Icons.build,
+                  ),
+                  validator:
+                      (value) =>
+                          value == null || value.isEmpty
+                              ? 'Please enter your skills'
+                              : null,
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _experienceController,
-                  decoration: _buildInputDecoration('Experience', Icons.work_outline), // briefcase icon
-                  validator: (value) =>
-                      value == null || value.isEmpty ? 'Please enter your experience' : null,
+                  decoration: _buildInputDecoration(
+                    'Experience',
+                    Icons.work_outline,
+                  ),
+                  validator:
+                      (value) =>
+                          value == null || value.isEmpty
+                              ? 'Please enter your experience'
+                              : null,
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _passwordController,
-                  decoration: _buildInputDecoration('Password', Icons.lock_outline),
+                  decoration: _buildInputDecoration(
+                    'Password',
+                    Icons.lock_outline,
+                  ),
                   obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -168,7 +200,10 @@ class _VolunteerSignupScreenState extends State<VolunteerSignupScreen> {
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
-                  decoration: _buildInputDecoration('Confirm Password', Icons.lock_outline),
+                  decoration: _buildInputDecoration(
+                    'Confirm Password',
+                    Icons.lock_outline,
+                  ),
                   obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -190,19 +225,20 @@ class _VolunteerSignupScreenState extends State<VolunteerSignupScreen> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: _isLoading
-                      ? const SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: Colors.white,
+                  child:
+                      _isLoading
+                          ? const SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
+                          )
+                          : const Text(
+                            'Sign Up',
+                            style: TextStyle(fontSize: 16, color: Colors.white),
                           ),
-                        )
-                      : const Text(
-                          'Sign Up',
-                          style: TextStyle(fontSize: 16, color: Colors.white),
-                        ),
                 ),
               ],
             ),

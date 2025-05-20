@@ -1,7 +1,4 @@
-//import 'package:get/get.dart';
-//import 'package:get/get_core/src/get_main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-//import 'package:vollify/controllers/user_controller.dart';
 import 'package:vollify/models/user_model.dart';
 import 'package:vollify/services/user_service.dart';
 
@@ -39,7 +36,7 @@ class AuthService {
       'profile_image': profileImage,
     });
 
-    //print('User ID: ${user.id}');
+   
 
     final userData =
         await supabase.from('users').select().eq('id', user.id).single();

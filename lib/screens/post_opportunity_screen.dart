@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-//import 'package:get/get.dart';
 import 'package:vollify/services/opportunity_service.dart';
 import 'package:vollify/controllers/organization_controller.dart';
 
@@ -26,12 +25,10 @@ class _PostOpportunityScreenState extends State<PostOpportunityScreen> {
   final TextEditingController _locationController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
-  //final TextEditingController _nameController = TextEditingController();
 
   void _postOpportunity() async {
     if (_formKey.currentState!.validate()) {
       try {
-        // Get organization ID from controller
         final orgController = Get.find<OrganizationController>();
         await orgController.fetchOrganizationData();
         final orgName = orgController.name.value;
@@ -47,14 +44,12 @@ class _PostOpportunityScreenState extends State<PostOpportunityScreen> {
           'location': _locationController.text.trim(),
           'email': _emailController.text.trim(),
           'phone': _phoneController.text.trim(),
-          //'date': DateTime.now().toIso8601String(), // or use a date picker
         });
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Opportunity Posted Successfully!')),
         );
 
-        // Clear the form
         _formKey.currentState!.reset();
         _titleController.clear();
         _descriptionController.clear();
@@ -76,7 +71,7 @@ class _PostOpportunityScreenState extends State<PostOpportunityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF20331B), // Match HomeScreen
+        backgroundColor: const Color(0xFF20331B),
         title: const Text(
           'Post Opportunity',
           style: TextStyle(color: Colors.white),
@@ -87,14 +82,13 @@ class _PostOpportunityScreenState extends State<PostOpportunityScreen> {
         foregroundColor: Colors.white,
       ),
       body: Container(
-        color: Colors.white, // Simple white background like signup page
+        color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Form(
             key: _formKey,
             child: ListView(
               children: [
-                // Title Field
                 TextFormField(
                   controller: _titleController,
                   decoration: const InputDecoration(
@@ -110,7 +104,6 @@ class _PostOpportunityScreenState extends State<PostOpportunityScreen> {
                 ),
                 const SizedBox(height: 16),
 
-                // Description Field
                 TextFormField(
                   controller: _descriptionController,
                   decoration: const InputDecoration(
@@ -127,7 +120,6 @@ class _PostOpportunityScreenState extends State<PostOpportunityScreen> {
                 ),
                 const SizedBox(height: 16),
 
-                // Domain Field
                 TextFormField(
                   controller: _domainController,
                   decoration: const InputDecoration(
@@ -143,7 +135,6 @@ class _PostOpportunityScreenState extends State<PostOpportunityScreen> {
                 ),
                 const SizedBox(height: 16),
 
-                // Number of Volunteers Required Field
                 TextFormField(
                   controller: _volunteersRequiredController,
                   decoration: const InputDecoration(
@@ -163,7 +154,6 @@ class _PostOpportunityScreenState extends State<PostOpportunityScreen> {
                 ),
                 const SizedBox(height: 16),
 
-                // Skills Required Field
                 TextFormField(
                   controller: _skillsRequiredController,
                   decoration: const InputDecoration(
@@ -179,7 +169,6 @@ class _PostOpportunityScreenState extends State<PostOpportunityScreen> {
                 ),
                 const SizedBox(height: 16),
 
-                // Location Field
                 TextFormField(
                   controller: _locationController,
                   decoration: const InputDecoration(
@@ -195,7 +184,6 @@ class _PostOpportunityScreenState extends State<PostOpportunityScreen> {
                 ),
                 const SizedBox(height: 16),
 
-                // Email Field
                 TextFormField(
                   controller: _emailController,
                   decoration: const InputDecoration(
@@ -215,7 +203,6 @@ class _PostOpportunityScreenState extends State<PostOpportunityScreen> {
                 ),
                 const SizedBox(height: 16),
 
-                // Phone Number Field
                 TextFormField(
                   controller: _phoneController,
                   decoration: const InputDecoration(
@@ -235,14 +222,13 @@ class _PostOpportunityScreenState extends State<PostOpportunityScreen> {
                 ),
                 const SizedBox(height: 32),
 
-                // Post Opportunity Button
                 SizedBox(
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
                     onPressed: _postOpportunity,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF20331B), // Match AppBar
+                      backgroundColor: const Color(0xFF20331B),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -254,7 +240,7 @@ class _PostOpportunityScreenState extends State<PostOpportunityScreen> {
                     ),
                     child: const Text(
                       'Post Opportunity',
-                      style: TextStyle(color: Colors.white), // Button text color
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),

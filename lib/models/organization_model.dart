@@ -1,10 +1,9 @@
 import 'user_model.dart';
 
 class OrganizationModel {
-  final String id; // Unique ID for the user (from 'users' table)
+  final String id;
   final String name;
-  final UserModel
-  owner; // The owner is a user (which should be a Volunteer or Organization)
+  final UserModel owner;
   final String location;
   final List<String> socialMedia;
   final String email;

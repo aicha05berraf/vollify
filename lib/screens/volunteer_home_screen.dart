@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vollify/controllers/user_controller.dart';
@@ -69,7 +71,7 @@ class VolunteerHomeScreen extends StatelessWidget {
                   crossAxisCount: 2,
                   mainAxisSpacing: 16,
                   crossAxisSpacing: 16,
-                  childAspectRatio: 0.9, // Adjusted for larger cards
+                  childAspectRatio: 0.9,
                   padding: const EdgeInsets.all(8),
                   children:
                       cards.map((card) {
@@ -117,7 +119,7 @@ class _HomeCard extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            // ignore: deprecated_member_use
+
             color: data.color.withOpacity(0.95),
           ),
           padding: const EdgeInsets.all(16),
@@ -130,7 +132,7 @@ class _HomeCard extends StatelessWidget {
                 data.title,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  fontSize: 18, // Increased font size
+                  fontSize: 18,
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
                 ),

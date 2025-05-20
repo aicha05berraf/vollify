@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-//import 'package:vollify/controllers/organization_controller.dart';
 import 'package:vollify/services/auth_service.dart';
 import 'package:vollify/controllers/user_controller.dart';
-//import 'package:vollify/models/volunteer_model.dart';
-//import 'package:vollify/models/organization_model.dart';
-//import 'package:vollify/models/user_model.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -29,35 +25,18 @@ class _LoginScreenState extends State<LoginScreen> {
         _emailController.text.trim(),
         _passwordController.text.trim(),
       );
-      //print('userModel role: ${userModel.role}');
+
       String role = userModel.role;
 
       final userController = Get.find<UserController>();
       // ignore: unused_local_variable
       final orgUser = User;
       userController.setUser(userModel);
-      //UserModel orgUser = OrganizationModel as UserModel;
 
-      /*final box = GetStorage();
-      box.write('user_id', userModel.id);
-      box.write('role', userModel.role);
-      */
-
-      /*String role;
-      if (userModel is VolunteerModel) {
-        role = 'volunteer';
-      } else if (userModel is OrganizationModel) {
-        role = 'organization';
-      } else {
-        throw Exception('Unknown user role');
-      }
-*/
       if (role == 'volunteer') {
         Get.offAllNamed('/volunteerHome');
       } else if (role == 'organization') {
-        //Get.find<UserController>().user.value = orgUser;
         Get.offAllNamed('/organizationHome');
-        //Get.find<UserController>().user.value = orgUser;
       }
     } catch (e) {
       Get.snackbar(
@@ -80,34 +59,30 @@ class _LoginScreenState extends State<LoginScreen> {
             Get.offAllNamed('/userType');
           },
         ),
-        title: const Text(
-          'Login',
-          style: TextStyle(color: Colors.white), // AppBar title text color
-        ),
-        backgroundColor: const Color(0xFF20331B), // Match signup page background
+        title: const Text('Login', style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color(0xFF20331B),
         foregroundColor: Colors.white,
         elevation: 0,
       ),
       body: Container(
-        color: Colors.white, // Simple white background like in signup page
+        color: Colors.white,
         child: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 24.0,
+              vertical: 32.0,
+            ),
             child: Form(
               key: _formKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // Illustration
                   Center(
-                    child: Image.asset(
-                      'assets/icons/login.png',
-                      height: 140,
-                    ),
+                    child: Image.asset('assets/icons/login.png', height: 140),
                   ),
                   const SizedBox(height: 32),
-                  // Welcome message
+
                   Text(
                     'Welcome Back',
                     textAlign: TextAlign.center,
@@ -117,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 32),
-                  // Email field
+
                   TextFormField(
                     controller: _emailController,
                     decoration: InputDecoration(
@@ -139,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   const SizedBox(height: 20),
-                  // Password field
+
                   StatefulBuilder(
                     builder: (context, setState) {
                       return TextFormField(
@@ -177,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   const SizedBox(height: 32),
-                  // Login button
+
                   SizedBox(
                     height: 50,
                     child: ElevatedButton(
@@ -191,12 +166,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Roboto',
-                          color: Colors.white, // Button text color
+                          color: Colors.white,
                         ),
                       ),
                       child: const Text(
                         'Login',
-                        style: TextStyle(color: Colors.white), // Button text color
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ),

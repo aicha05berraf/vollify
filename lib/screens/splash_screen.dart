@@ -61,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF20331B), // Your deep forest green
+      backgroundColor: const Color(0xFF20331B), 
       body: Center(
         child: AnimatedBuilder(
           animation: _controller,
@@ -78,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen>
                       const Icon(
                         Icons.volunteer_activism,
                         size: 100,
-                        color: Color(0xFFC3CA92), // Light olive accent
+                        color: Color(0xFFC3CA92), 
                       ),
                       const SizedBox(height: 20),
                       Text(

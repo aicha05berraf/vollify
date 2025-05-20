@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-//import 'package:get/get_core/src/get_main.dart';
 import 'package:vollify/controllers/user_controller.dart';
 import 'package:vollify/services/opportunity_service.dart';
 
@@ -38,12 +37,16 @@ class _SearchOpportunityScreenState extends State<SearchOpportunityScreen> {
 
   void _filterOpportunities(String query) {
     setState(() {
-
-      _filteredOpportunities = _opportunities.where((opportunity) {
-        final title = (opportunity['title'] ?? '').toString().toLowerCase();
-        final org = (opportunity['organization_name'] ?? '').toString().toLowerCase();
-        return title.contains(query.toLowerCase()) || org.contains(query.toLowerCase());
-      }).toList();
+      _filteredOpportunities =
+          _opportunities.where((opportunity) {
+            final title = (opportunity['title'] ?? '').toString().toLowerCase();
+            final org =
+                (opportunity['organization_name'] ?? '')
+                    .toString()
+                    .toLowerCase();
+            return title.contains(query.toLowerCase()) ||
+                org.contains(query.toLowerCase());
+          }).toList();
     });
   }
 
@@ -59,7 +62,7 @@ class _SearchOpportunityScreenState extends State<SearchOpportunityScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const Color cardBg = Color(0xFFE5EAD2); // lighter than #C3CA92
+    const Color cardBg = Color(0xFFE5EAD2);
     const Color appBarColor = Color(0xFF20331B);
 
     return Scaffold(
@@ -74,83 +77,86 @@ class _SearchOpportunityScreenState extends State<SearchOpportunityScreen> {
         elevation: 0,
         foregroundColor: Colors.white,
       ),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  // Search Field
-                  TextField(
-                    controller: _searchController,
-                    decoration: InputDecoration(
-                      labelText: 'Search',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+      body:
+          _isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: _searchController,
+                      decoration: InputDecoration(
+                        labelText: 'Search',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.search),
+                          onPressed: () {
+                            _filterOpportunities(_searchController.text);
+                          },
+                        ),
                       ),
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.search),
-                        onPressed: () {
-                          _filterOpportunities(_searchController.text);
+                      onChanged: (value) {
+                        _filterOpportunities(value);
+                      },
+                    ),
+                    const SizedBox(height: 16),
+
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: _filteredOpportunities.length,
+                        itemBuilder: (context, index) {
+                          final opportunity = _filteredOpportunities[index];
+                          return GestureDetector(
+                            onTap: () => _showOpportunityDetails(opportunity),
+                            child: Container(
+                              margin: const EdgeInsets.only(bottom: 16),
+                              decoration: BoxDecoration(
+                                color: cardBg,
+                                borderRadius: BorderRadius.circular(16),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 4,
+                                    offset: Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 16,
+                                  horizontal: 20,
+                                ),
+                                title: Text(
+                                  opportunity['title'] ?? '',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                    color: Color(0xFF20331B),
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  opportunity['organization_name'] ?? '',
+                                  style: const TextStyle(
+                                    color: Color(0xFF354C2B),
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                trailing: const Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Color(0xFF697E50),
+                                ),
+                              ),
+                            ),
+                          );
                         },
                       ),
                     ),
-                    onChanged: (value) {
-                      _filterOpportunities(value);
-                    },
-                  ),
-                  const SizedBox(height: 16),
-
-                  // List of Opportunities
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: _filteredOpportunities.length,
-                      itemBuilder: (context, index) {
-                        final opportunity = _filteredOpportunities[index];
-                        return GestureDetector(
-                          onTap: () => _showOpportunityDetails(opportunity),
-                          child: Container(
-                            margin: const EdgeInsets.only(bottom: 16),
-                            decoration: BoxDecoration(
-                              color: cardBg,
-                              borderRadius: BorderRadius.circular(16),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: ListTile(
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 16, horizontal: 20),
-                              title: Text(
-                                opportunity['title'] ?? '',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                  color: Color(0xFF20331B),
-                                ),
-                              ),
-                              subtitle: Text(
-                                opportunity['organization_name'] ?? '',
-                                style: const TextStyle(
-                                  color: Color(0xFF354C2B),
-                                  fontSize: 15,
-                                ),
-                              ),
-                              trailing: const Icon(Icons.arrow_forward_ios,
-                                  color: Color(0xFF697E50)),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
     );
   }
 }
@@ -181,12 +187,11 @@ class OpportunityDetailsScreen extends StatelessWidget {
         elevation: 0,
         foregroundColor: Colors.white,
       ),
-      backgroundColor: Colors.white, // Match SignUp screen background
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: ListView(
           children: [
-            // Organization
             Row(
               children: [
                 const Icon(Icons.business, color: iconColor),
@@ -200,7 +205,7 @@ class OpportunityDetailsScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 14),
-            // Description
+
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -215,7 +220,7 @@ class OpportunityDetailsScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 14),
-            // Location
+
             Row(
               children: [
                 const Icon(Icons.location_on, color: iconColor),
@@ -229,7 +234,7 @@ class OpportunityDetailsScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 14),
-            // Volunteers Needed
+
             Row(
               children: [
                 const Icon(Icons.people, color: iconColor),
@@ -243,13 +248,10 @@ class OpportunityDetailsScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 14),
-            // Status
+
             Row(
               children: [
-                Icon(
-                  Icons.info,
-                  color: isFull ? Colors.red : iconColor,
-                ),
+                Icon(Icons.info, color: isFull ? Colors.red : iconColor),
                 const SizedBox(width: 10),
                 Text(
                   'Status: ${isFull ? 'Full' : 'Open'}',
@@ -261,7 +263,7 @@ class OpportunityDetailsScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 14),
-            // Required Skills
+
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -276,7 +278,7 @@ class OpportunityDetailsScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 14),
-            // Email
+
             Row(
               children: [
                 const Icon(Icons.email, color: iconColor),
@@ -290,7 +292,7 @@ class OpportunityDetailsScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 14),
-            // Phone
+
             Row(
               children: [
                 const Icon(Icons.phone, color: iconColor),
@@ -319,23 +321,25 @@ class OpportunityDetailsScreen extends StatelessWidget {
                       return;
                     }
 
-                    final success = await OpportunityService().applyToOpportunity(
-                      opportunity['id'],
-                      userId,
-                    );
+                    final success = await OpportunityService()
+                        .applyToOpportunity(opportunity['id'], userId);
 
                     if (success) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('✅ Application submitted')),
+                        const SnackBar(
+                          content: Text('✅ Application submitted'),
+                        ),
                       );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('❌ Already applied or failed')),
+                        const SnackBar(
+                          content: Text('❌ Already applied or failed'),
+                        ),
                       );
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: appBarColor, // AppBar color
+                    backgroundColor: appBarColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -347,7 +351,7 @@ class OpportunityDetailsScreen extends StatelessWidget {
                   ),
                   child: const Text(
                     'Apply',
-                    style: TextStyle(color: Colors.white), // White text
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               )

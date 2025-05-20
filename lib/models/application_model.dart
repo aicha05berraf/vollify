@@ -2,7 +2,7 @@ class ApplicationModel {
   final String applicationId;
   final String volunteerId;
   final String opportunityId;
-  final String status; // Pending, Accepted, or Rejected
+  final String status; 
   final DateTime applicationDate;
 
   ApplicationModel({
@@ -13,7 +13,7 @@ class ApplicationModel {
     required this.applicationDate,
   });
 
-  // Factory method to create an ApplicationModel from a JSON object
+  
   factory ApplicationModel.fromJson(Map<String, dynamic> json) {
     return ApplicationModel(
       applicationId: json['applicationId'],
@@ -24,7 +24,7 @@ class ApplicationModel {
     );
   }
 
-  // Method to convert an ApplicationModel to a JSON object
+  
   Map<String, dynamic> toJson() {
     return {
       'applicationId': applicationId,

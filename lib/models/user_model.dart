@@ -1,19 +1,15 @@
-//import 'dart:convert';
-
 class UserModel {
   final String id;
   final String email;
-  final String role; // 'volunteer' or 'organization'
+  final String role;
   final DateTime? createdAt;
 
-  // Volunteer fields
   final String? firstName;
   final String? lastName;
   final String? phoneNumber;
-  final List<String>? skills; // stored as JSON string
+  final List<String>? skills;
   final String? experience;
 
-  // Organization fields
   final String? orgName;
   final String? location;
   final List<String>? socialMediaLinks;
@@ -78,7 +74,6 @@ class UserModel {
       firstName: map['first_name'],
       lastName: map['last_name'],
       phoneNumber: map['phone_number'],
-      //skills: map['skills'],
       skills: (map['skills'] as List?)?.cast<String>(),
       experience: map['experience'],
       orgName: map['org_name'],

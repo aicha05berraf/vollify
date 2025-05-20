@@ -84,45 +84,47 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         elevation: 0,
         foregroundColor: Colors.white,
       ),
-      backgroundColor: Colors.white, // Consistent with SignUp page
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: _notifications.isEmpty
-                  ? const Center(child: Text('No notifications yet.'))
-                  : ListView.builder(
-                      itemCount: _notifications.length,
-                      itemBuilder: (context, index) {
-                        final notification = _notifications[index];
-                        return Card(
-                          margin: const EdgeInsets.only(bottom: 16.0),
-                          child: ListTile(
-                            leading: Icon(
-                              Icons.notifications,
-                              color: bellColor,
-                              size: 40,
-                            ),
-                            title: Text(
-                              notification['message'] ?? 'No message',
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
+      backgroundColor: Colors.white,
+      body:
+          _isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Padding(
+                padding: const EdgeInsets.all(16.0),
+                child:
+                    _notifications.isEmpty
+                        ? const Center(child: Text('No notifications yet.'))
+                        : ListView.builder(
+                          itemCount: _notifications.length,
+                          itemBuilder: (context, index) {
+                            final notification = _notifications[index];
+                            return Card(
+                              margin: const EdgeInsets.only(bottom: 16.0),
+                              child: ListTile(
+                                leading: Icon(
+                                  Icons.notifications,
+                                  color: bellColor,
+                                  size: 40,
+                                ),
+                                title: Text(
+                                  notification['message'] ?? 'No message',
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  notification['created_at'] != null
+                                      ? DateTime.parse(
+                                        notification['created_at'],
+                                      ).toLocal().toString()
+                                      : '',
+                                  style: const TextStyle(color: Colors.grey),
+                                ),
                               ),
-                            ),
-                            subtitle: Text(
-                              notification['created_at'] != null
-                                  ? DateTime.parse(
-                                      notification['created_at'],
-                                    ).toLocal().toString()
-                                  : '',
-                              style: const TextStyle(color: Colors.grey),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-            ),
+                            );
+                          },
+                        ),
+              ),
     );
   }
 }

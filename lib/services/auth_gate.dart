@@ -18,9 +18,9 @@ class AuthGate extends StatelessWidget {
 
         final session = snapshot.hasData ? snapshot.data!.session : null;
         if (session != null) {
-          return const HomeScreen(); // Replace with your home screen widget
+          return const HomeScreen(); 
         } else {
-          return LoginScreen(); // Replace with your login screen widget
+          return LoginScreen(); 
         }
       },
     );

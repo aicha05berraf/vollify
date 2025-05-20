@@ -1,13 +1,12 @@
 class VolunteerModel {
-  final String id; // Unique ID for the user (from 'users' table)
+  final String id;
   final String firstName;
   final String lastName;
   final String email;
   final String skills;
   final String experience;
   final String phoneNumber;
-  final String? imageUrl; // Profile picture URL
-  //final bool isVolunteer; // Role flag to identify if user is a volunteer
+  final String? imageUrl;
 
   VolunteerModel({
     required this.id,
@@ -18,7 +17,6 @@ class VolunteerModel {
     required this.experience,
     required this.phoneNumber,
     this.imageUrl,
-    //required this.isVolunteer,
   });
 
   factory VolunteerModel.fromJson(Map<String, dynamic> json) {
@@ -31,7 +29,6 @@ class VolunteerModel {
       experience: json['experience'],
       phoneNumber: json['phoneNumber'],
       imageUrl: json['imageUrl'],
-      //isVolunteer: json['isVolunteer'],
     );
   }
 
@@ -47,7 +44,6 @@ class VolunteerModel {
       'experience': experience,
       'phoneNumber': phoneNumber,
       'imageUrl': imageUrl,
-      //'isVolunteer': isVolunteer,
     };
   }
 }

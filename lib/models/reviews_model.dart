@@ -13,7 +13,6 @@ class ReviewsModel {
     required this.reviewDate,
   });
 
-  // Factory method to create a ReviewsModel from a JSON object
   factory ReviewsModel.fromJson(Map<String, dynamic> json) {
     return ReviewsModel(
       opportunityTitle: json['opportunityTitle'],
@@ -24,7 +23,6 @@ class ReviewsModel {
     );
   }
 
-  // Method to convert a ReviewsModel to a JSON object
   Map<String, dynamic> toJson() {
     return {
       'opportunityTitle': opportunityTitle,

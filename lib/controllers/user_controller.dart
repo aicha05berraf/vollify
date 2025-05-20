@@ -1,25 +1,21 @@
-//import 'dart:io';
+
 
 // ignore_for_file: avoid_print
 
 import 'package:get/get.dart';
 import 'package:vollify/models/user_model.dart';
-//import 'package:vollify/controllers/user_controller.dart';
-//import 'package:vollify/models/user_model.dart';
-//import 'package:vollify/models/user_model.dart';
-//import 'package:vollify/models/user_model.dart';
 import 'package:vollify/models/volunteer_model.dart';
 import 'package:vollify/models/organization_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-//import 'package:vollify/services/user_service.dart';
+
 
 class UserController extends GetxController {
-  //var user = Rxn<UserModel>();
+  
 
   Rxn<UserModel> user =
       Rxn<
         UserModel
-      >(); // Can hold UserModel, VolunteerModel, or OrganizationModel
+      >(); 
 
   void setUser(UserModel newUser) {
     user.value = newUser;
@@ -73,7 +69,7 @@ class UserController extends GetxController {
     final userId = user.value?.id;
     if (userId == null) throw 'No user ID found';
 
-    // Update Supabase
+    
     final response = await supabase
         .from('users')
         .update(updates)
@@ -84,19 +80,11 @@ class UserController extends GetxController {
       return;
     }
 
-    // Refresh user info
+    
     await fetchUserById(userId);
   }
 }
 
 final supabase = Supabase.instance.client;
 
-/*Future<void> fetchUser(String userId) async {
-  try {
-    Rxn<UserModel> user = Rxn<UserModel>();
-    final userData = await AuthService().fetchUserDetails(userId);
-    user.value = userData;
-  } catch (e) {
-    //print('❌ Error fetching user: $e');
-  }
-}*/
+

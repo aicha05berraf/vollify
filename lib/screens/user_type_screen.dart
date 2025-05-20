@@ -29,7 +29,6 @@ class UserTypeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Header Section
               Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(16),
@@ -74,7 +73,6 @@ class UserTypeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 32),
 
-              // Volunteer Card
               _buildRoleCard(
                 context,
                 icon: Icons.people_alt,
@@ -87,7 +85,6 @@ class UserTypeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
 
-              // Organization Card
               _buildRoleCard(
                 context,
                 icon: Icons.business,
@@ -99,7 +96,6 @@ class UserTypeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 32),
 
-              // Login Prompt (only "Login" is clickable)
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -163,7 +159,6 @@ class UserTypeScreen extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // Icon Container
             Container(
               width: 50,
               height: 50,
@@ -175,7 +170,6 @@ class UserTypeScreen extends StatelessWidget {
             ),
             const SizedBox(width: 16),
 
-            // Text Content
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -197,7 +191,6 @@ class UserTypeScreen extends StatelessWidget {
               ),
             ),
 
-            // Arrow Icon
             Icon(Icons.arrow_forward_ios, size: 16, color: color),
           ],
         ),
